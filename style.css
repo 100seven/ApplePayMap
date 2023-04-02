@@ -1,0 +1,112 @@
+
+#map {
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    left:0;
+    top:0;
+    margin:0;
+    padding:0;
+}
+
+#header {
+    background-color: aquamarine;
+    z-index: 99;
+    position : sticky;
+}
+
+img {
+    
+}
+
+#menu {
+    width: 1%;
+    height: 1%;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    background-color: aquamarine;
+    z-index: 99;
+    position : sticky;
+
+}
+
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vw;    
+}
+
+button {
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 6vw;
+  padding: 1vw 2vw;
+  border: none;
+  border-radius: 999px;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+form input[type="text"] {
+  padding: 1vw 2vw;
+  border: none;
+  border-radius: 999px;
+  margin-left: 2vw;
+  width: 40vw;
+    font-size: 6vw;
+    outline: none;
+}
+
+form button[type="submit"] {
+/*
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 4vw;
+  padding: 2vw 4vw;
+  border: none;
+  border-radius: 1vw;
+*/
+  margin-left: -6vw;
+    
+}
+
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.ico_search_submit {
+    background-image: url(2906503.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-top: 50%;
+    margin-bottom: 50%;    
+}
+
+footer {
+    width: 100%;
+    height: 10%;
+    position:absolute;
+    left:0;
+    top:0;
+    margin:0;
+    padding:0;
+}
+
+body {
+    height: 100%;
+}
