@@ -1,8 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
 	<meta charset="utf-8">
-	<title>다음 지도 API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="애플페이지도 [PayMap]"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://100seven.github.io/ApplePayMap/"/>
+    <meta property="og:description" content="주변의 애플페이를 지원하는 매장의 위치를 간편하게 확인하세요!"/>
+    <meta property="og:image" content="https://cdn.dribbble.com/users/1078384/screenshots/4881174/happy_birthday_illustrations.jpg"/>
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="600" />
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#B6AFD6"/>
+
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#B6AFD6"/>
+
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#B6AFD6"/>
+
+    <!-- SEO Stuff -->
+    <meta name="audience" lang="ko" content="all"/>
+    <meta name="expires" content="7 days"/>
+    <meta name="robots" content="noindex,nofollow"/>
+    <meta name="page-topic" content="ApplePayMap"/>
+    <meta name="copyright" content="OnTheDesk"/>
+    <meta name="author" content="OnTheDesk"/>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:image" content="https://user-images.githubusercontent.com/76203690/133252736-1c291cf4-235e-45fc-b3ae-ea4e4037b087.jpg"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://100seven.github.io/ApplePayMap/"/>
+    <meta property="og:site_name" content="ApplePayMap"/>
+    <meta property="og:title" content="PayMap"/>
+    <meta property="og:description" content="주변의 애플페이를 지원하는 매장의 위치를 간편하게 확인하세요!"/>
+
+    <!-- Twitter -->
+    <meta property="twitter:url" content="https://100seven.github.io/ApplePayMap/">
+    <meta property="twitter:title" content="ApplePayMap">
+    <meta property="twitter:description" content="주변의 애플페이를 지원하는 매장의 위치를 간편하게 확인하세요!">
+    <meta property="twitter:image" content="https://user-images.githubusercontent.com/76203690/133252736-1c291cf4-235e-45fc-b3ae-ea4e4037b087.jpg">
+
+
+
+    <link rel="shortcut icon" href="./img/PayMapfav.png">
+    <link rel="apple-touch-icon-precomposed" href="./img/PayMapfav.png">
+
+	<title>애플페이지도 [PayMap]</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,7 +67,31 @@
       </form>
     </header>
 -->
-	<div id="map"></div>
+
+
+    <header>
+        <a href=""><img id="logo2" src="./img/paymap.png" height="70%"alt=""></a>
+        <ul class="navbar">
+            <li><a href="" class="nav">사용법</a></li>
+            <li><a href="" class="nav">제보</a></li>
+            <li><a href="" class="nav">이벤트</a></li>
+            <!-- <li><a href="" class="nav">오시는길</a></li> -->
+        </ul>
+        <div class="dropdown">
+            <button class="dropdown-button">MENU</button>
+            <div class="dropdown-content">
+                <a href="#">사용법</a>
+                <a href="#">제보</a>
+                <a href="#">이벤트</a>
+                <!-- <a href="#">오시는길</a> -->
+            </div>
+        </div>
+    </header>
+
+    
+    <main>
+	    <div id="map"></div>
+    </main>
     
 	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=18fdb16ee6259354190b88a18d7c6c5a&libraries=services"></script>
 	<script>
@@ -39,7 +110,7 @@
         // 장소 검색 객체를 생성합니다
         var ps = new kakao.maps.services.Places(); 
         
-        map.setMaxLevel(2);
+        map.setMaxLevel(3);
         
         // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
         if (navigator.geolocation) {
@@ -130,16 +201,28 @@
             markers = [];
         }
         
+        function jsonsearch(pscb,boundd) {
+            fetch('stores.json')
+            .then(response => response.json())
+            .then(stores => {
+            for (let i = 0; i < stores.length; i++) {
+                    console.log(stores[i]["지원업체"]);
+                    ps.keywordSearch(stores[i]["지원업체"], pscb, boundd); //검색
+                }
+            })
+          .catch(error => console.error(error));
+            
+        }
+
         fetch('stores.json')
             .then(response => response.json())
-            .then(data => {
-            for (let i = 0; i < data.length; i++) {
-                    console.log(data[i]["지원업체"]);
+            .then(stores => {
+            for (let i = 0; i < stores.length; i++) {
+                    console.log(stores[i]["지원업체"]);
                 }
             })
           .catch(error => console.error(error));
 
-        
         
         
         //지도 움질일때 작동
@@ -148,8 +231,9 @@
             var nowbounds = map.getBounds(); //영역 지정
             var position = map.getCenter(); //가운데 지정
             // console.log(nowbounds.toString()); //영역지정
-                ps.keywordSearch('gs25', placesSearchCB, {bounds:nowbounds}); //검색
-                ps.keywordSearch('cu', placesSearchCB, {bounds:nowbounds}); //검색
+            jsonsearch(placesSearchCB,{bounds:nowbounds});
+            removeMarker(); //마커 제거
+                // ps.keywordSearch('cu', placesSearchCB, {bounds:nowbounds}); //검색
             // ps.keywordSearch('gs25', placesSearchCB, {bounds:nowbounds}); //검색
             // alert("moved");
         });
@@ -162,7 +246,7 @@
         
         var imageSrc = "./img/marker.png"; 
         
-        var imageSize = new kakao.maps.Size(144, 210);
+        var imageSize = new kakao.maps.Size(48, 70);
         
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
         
@@ -202,7 +286,7 @@
             // 마커에 클릭이벤트를 등록합니다
             kakao.maps.event.addListener(marker, 'click', function() {
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-                infowindow.setContent('<div style="padding:3vw;font-size:3.5rem;">' + place.place_name + '</div>');
+                infowindow.setContent('<div style="padding:0.8vw;font-size:1rem;text-align: left;padding-left:auto;padding-left:auto;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
             });
         }
