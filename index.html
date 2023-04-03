@@ -202,7 +202,7 @@
         }
         
         function jsonsearch(pscb,boundd) {
-            fetch('stores.json')
+            fetch('./stores.json')
             .then(response => response.json())
             .then(stores => {
             for (let i = 0; i < stores.length; i++) {
@@ -214,14 +214,14 @@
             
         }
 
-        fetch('stores.json')
-            .then(response => response.json())
-            .then(stores => {
-            for (let i = 0; i < stores.length; i++) {
-                    console.log(stores[i]["지원업체"]);
-                }
-            })
-          .catch(error => console.error(error));
+        // fetch('stores.json')
+        //     .then(response => response.json())
+        //     .then(stores => {
+        //     for (let i = 0; i < stores.length; i++) {
+        //             console.log(stores[i]["지원업체"]);
+        //         }
+        //     })
+        //   .catch(error => console.error(error));
 
         
         
