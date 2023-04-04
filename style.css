@@ -114,6 +114,19 @@ body {
     padding: 0;
 }
 
+.infowindow{
+  height: 100%;
+  width: 100%;
+  line-height : 100%;
+  font-size: 1rem;
+  text-align: center;
+  padding-left:auto;
+  padding-left:auto;
+  padding: 10%;
+  white-space: nowrap;
+}
+
+
 header{
   display: flex;
   justify-content: space-between;
@@ -205,6 +218,7 @@ header{
   margin-bottom: 10%;
   
 }
+
 
 .dropdown-content a:hover { background-color: transparent; }
 .dropdown:hover .dropdown-content { display: block; }
